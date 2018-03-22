@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+package-lock.json
+
+# compiled code
+**dist/
+
+# Database related config
+db/config/
