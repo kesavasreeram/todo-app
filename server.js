@@ -2,8 +2,23 @@
 
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
-const host = process.env.host || 'localhost'
+const bodyParser = require('body-parser')
+// for logging
+const morgan = require('morgan')
+
+// in a way to define middleware for the application.
+// in this case, we are adding some information to the request.
+app.use((request, response, next) => {
+  request.user = { name: 'Kesava'}
+  next()
+})
+
+// configure logging middleware to log http traffic
+app.use(morgan('combined'))
+
+// Parse incoming requests data (https://github.com/expressjs/body-parser)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (request, response) => {
   response.send({
@@ -11,6 +26,4 @@ app.get('/', (request, response) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`server started at http://${host}:${port}`)
-})
+module.exports = app
