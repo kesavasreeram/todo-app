@@ -2,7 +2,9 @@
 // It helps in consolidating all controllers in one place.
 
 const todos = require('./todos')
+const todoitems = require('./todoitems')
 
 module.exports = {
-  todos
+  todos,
+  todoitems
 }

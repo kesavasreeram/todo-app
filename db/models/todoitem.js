@@ -2,8 +2,14 @@
 
 module.exports = (sequelize, DataTypes) => {
   const todoitem = sequelize.define('todoitem', {
-    content: DataTypes.STRING,
-    complete: DataTypes.BOOLEAN
+    content: {
+      type: DataTypes.STRING
+
+    },
+    complete: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   }, {})
 
   todoitem.associate = (models) =>{

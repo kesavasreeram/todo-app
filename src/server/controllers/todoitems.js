@@ -1,4 +1,3 @@
-const todo = require('../../../db/models').todo
 const todoitem = require('../../../db/models').todoitem
 
 module.exports = {
@@ -11,35 +10,25 @@ module.exports = {
   // that a route can be handled by multiple route handlers, in which case it's piped
   // or passed along all of those route handlers).
   create(reqest, response) {
-    return todo
+    return todoitem
       .create({
-        title: reqest.body.title
+        content: reqest.body.content,
+        todoid: reqest.params.todoId
       })
-      .then(todo => response.status(201).send(todo))
-      .catch(error => response.status(400).send(error))
-  },
-  findAll(request, response) {
-    return todo.all()
-      .then(todos => response.status(200).send(todos))
-      .catch(error => response.status(400).send(error))
-  },
-  findOne(request, response) {
-    return todo.findById(reqest.params.id)
-      .then(todo => response.status(200).send(todo))
-      .catch(error => response.status(400).send(error))
-  },
-  findAllWithChildren(request, response) {
-    return todo.findAll(
-      {
-        include: [{
-          model: todoitem,
-          as: 'todoItems'
-        }],
-      })
-      .then(todos => response.status(200).send(todos))
+      .then(todoitem => {response.status(201).send(todoitem)})
       .catch(error => {
         console.log('Error Occurred', error)
         response.status(400).send(error)
       })
+  },
+  findAll(request, response) {
+    return todoitem.all()
+      .then(todoitems => response.status(200).send(todoitems))
+      .catch(error => response.status(400).send(error))
+  },
+  findOne(request, response) {
+    return todoitem.findById(reqest.params.id)
+      .then(todoitem => response.status(200).send(todoitem))
+      .catch(error => response.status(400).send(error))
   }
 }

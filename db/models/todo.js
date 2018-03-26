@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     todo.hasMany(models.todoitem, {
       foreignKey: 'todoid',
-      sourceKey: 'id'
+      sourceKey: 'id',
+      as: 'todoItems'  // this should match the alias you are providing
     })
   }
 
