@@ -1,23 +1,19 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-  const TodoItem = sequelize.define('TodoItem', {
-    content: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    complete: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
+  const todoitem = sequelize.define('todoitem', {
+    content: DataTypes.STRING,
+    complete: DataTypes.BOOLEAN
   }, {})
 
-  TodoItem.associate = (models) => {
-    TodoItem.belongsTo(models.Todo, {
-      foreignKey: 'todoId',
-      onDelete: 'CASCADE',
+  todoitem.associate = (models) =>{
+    // associations can be defined here
+    todoitem.belongsTo(models.todo, {
+      foreignKey: 'todoid',
+      targetKey: 'id',
+      onDelete: 'CASCADE'
     })
   }
 
-  return TodoItem
+  return todoitem
 }
